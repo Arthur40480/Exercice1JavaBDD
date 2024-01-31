@@ -1,7 +1,10 @@
 package fr.fms.jdbc;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import fr.fms.entities.*;
 import fr.fms.bdd.*;
@@ -9,22 +12,51 @@ import fr.fms.dao.IDaoImpl;
 
 public class TestJdbc {
 	public static void main(String[] args) {
-		
 		ArrayList<Article> articleList = new ArrayList<>();
 		IDaoImpl dao = new IDaoImpl();
+		
+		Properties properties = new Properties();
+		FileInputStream fileInputStream = null;
+		String dbDriverClass = null;
+		String dbUrl = null;
+		String dbLogin = null;
+		String dbPassword = null;
+		
+		try {
+			fileInputStream = new FileInputStream("config.properties");
+			properties.load(fileInputStream);
+			
+			dbDriverClass = properties.getProperty("db.driver.class");
+			dbUrl = properties.getProperty("db.url");
+			dbLogin = properties.getProperty("db.login");
+			dbPassword = properties.getProperty("db.password");
+			
+			System.out.println("Driver class : " + properties.get("db.driver.class"));
+			System.out.println("Url : " + properties.get("db.url"));
+			System.out.println("Login : " + properties.get("db.login"));
+			System.out.println("Password : " + properties.get("db.password"));
+
+		}catch(IOException e) {
+			System.err.println("ERREUR : Lecture du fichier impossible");
+			e.printStackTrace();
+		} finally {
+			if(fileInputStream != null) {
+				try {
+					fileInputStream.close();
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 				
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");		// On enregistre la class auprès du driver manager -> on charge le pilote
+			Class.forName(dbDriverClass);		// On enregistre la class auprès du driver manager -> on charge le pilote
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		//On récupère une connection à partir d'une urli + id + password:
-		String url = "jdbc:mariadb://localhost:3306/shop";
-		String login = "root";
-		String password = "ArthurGibertTosse40230";
-		
-		try(Connection connection = DriverManager.getConnection(url, login, password)) {	// Connection de java.sql
+				
+		try(Connection connection = DriverManager.getConnection(dbUrl, dbLogin, dbPassword)) {	// Connection de java.sql
 			String stringSql = "SELECT * FROM T_Articles";		// Une fois connecté, réalisation d'un requête
 			try(Statement statement = connection.createStatement()) {
 				try(ResultSet resultSet = statement.executeQuery(stringSql)) {
@@ -44,6 +76,5 @@ public class TestJdbc {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		dao.read(articleList.get(0));
 	}
 }
