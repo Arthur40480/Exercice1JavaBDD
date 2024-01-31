@@ -13,6 +13,12 @@ public class Article {
 		this.price = price;
 	}
 	
+	public Article(String description, String brand, double price) {
+		this.description = description;
+		this.brand = brand;
+		this.price = price;
+	}
+	
 	public String toString() {
 		return "Article numéro: " + getIdArticle() + " - " + getDescription() + " - Marque: " + getBrand() + " - Prix: " + getPrice();
 	}

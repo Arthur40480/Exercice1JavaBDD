@@ -4,11 +4,15 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import fr.fms.entities.*;
+import fr.fms.bdd.*;
+import fr.fms.dao.IDaoImpl;
 
 public class TestJdbc {
 	public static void main(String[] args) {
-		ArrayList<Article> articleList = new ArrayList<>();
 		
+		ArrayList<Article> articleList = new ArrayList<>();
+		IDaoImpl dao = new IDaoImpl();
+				
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");		// On enregistre la class auprès du driver manager -> on charge le pilote
 		}catch(ClassNotFoundException e) {
@@ -33,11 +37,13 @@ public class TestJdbc {
 					}
 				}
 			}
+			
 			for(Article article : articleList) {
 				System.out.println(article);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		dao.read(articleList.get(0));
 	}
 }
