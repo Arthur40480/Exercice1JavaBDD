@@ -33,7 +33,7 @@ public class IDaoImpl implements Dao {
 	@Override
 	public void delete(Article article) {
 		try(Statement statement = connection.createStatement()) {
-			String request = "DELETE FROM T_Articles WHERE description = '" + article.getDescription() +"'";
+			String request = "DELETE FROM T_Articles WHERE idArticle = '" + article.getIdArticle() +"'";
 			int row = statement.executeUpdate(request);
 			if(row >= 0) System.out.println("Supression ok");
 		}catch(SQLException e) {
@@ -45,7 +45,7 @@ public class IDaoImpl implements Dao {
 
 	@Override
 	public void update(Article article) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
