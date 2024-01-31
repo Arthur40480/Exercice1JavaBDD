@@ -9,10 +9,10 @@ Use Shop;
 -- - Construction de la table des articles en vente - --
 -- ---------------------------------------------------------------------
 CREATE TABLE T_Articles (
-	IdArticle			int(4)		PRIMARY KEY AUTO_INCREMENT,
-	Description			varchar(30)	NOT NULL,
-	Brand				varchar(30)	NOT NULL,
-	UnitaryPrice		float(8)	NOT NULL
+	IdArticle			INT(4)		PRIMARY KEY AUTO_INCREMENT,
+	Description			VARCHAR(30)	NOT NULL,
+	Brand				VARCHAR(30)	NOT NULL,
+	UnitaryPrice		FLOAT(8)	NOT NULL
 ) ENGINE = InnoDB;
 
 INSERT INTO T_Articles ( Description, Brand, UnitaryPrice ) VALUES ( 'Souris'	, 'Logitoch', 65);
@@ -28,4 +28,62 @@ INSERT INTO T_Articles ( Description, Brand, UnitaryPrice ) VALUES ( 'Batterie L
 INSERT INTO T_Articles ( Description, Brand, UnitaryPrice ) VALUES ( 'Casque Audio'	, 'Syno', 105);
 INSERT INTO T_Articles ( Description, Brand, UnitaryPrice ) VALUES ( 'WebCam'	, 'Logitoch', 755);
 
+CREATE TABLE T_Categories (
+	IdCategory 			INT(4)		PRIMARY KEY AUTO_INCREMENT,
+	CatName				VARCHAR(30)	NOT NULL,
+	Description			VARCHAR(100)	NOT NULL
+) ENGINE = InnoDB;
+
+INSERT INTO T_Categories ( CatName, Description) VALUES ( 'Périphérique'	, 'Dispositif connecté à un système de traitement de l''information central');
+INSERT INTO T_Categories ( CatName, Description) VALUES ( 'Composant'	, 'Les composants font référence au matériel interne d''un PC');
+
+ALTER TABLE T_Articles ADD COLUMN IdCategory INT(4);
+ALTER TABLE T_Articles ADD FOREIGN KEY(IdCateory) REFERENCES T_Categories(IdCategory);
+
+UPDATE T_ARTICLES SET IdCategory = 1 WHERE IdArticle = 1;
+UPDATE T_ARTICLES SET IdCategory = 1 WHERE IdArticle = 2;
+UPDATE T_ARTICLES SET IdCategory = 2 WHERE IdArticle = 3;
+UPDATE T_ARTICLES SET IdCategory = 1 WHERE IdArticle = 4;
+UPDATE T_ARTICLES SET IdCategory = 1 WHERE IdArticle = 5;
+UPDATE T_ARTICLES SET IdCategory = 1 WHERE IdArticle = 6;
+UPDATE T_ARTICLES SET IdCategory = 2 WHERE IdArticle = 7;
+UPDATE T_ARTICLES SET IdCategory = 2 WHERE IdArticle = 8;
+UPDATE T_ARTICLES SET IdCategory = 2 WHERE IdArticle = 9;
+UPDATE T_ARTICLES SET IdCategory = 2 WHERE IdArticle = 10;
+UPDATE T_ARTICLES SET IdCategory = 1 WHERE IdArticle = 11;
+UPDATE T_ARTICLES SET IdCategory = 1 WHERE IdArticle = 12;
+
+INSERT INTO T_Articles ( Description, Brand, UnitaryPrice, IdCategory ) VALUES ( 'Macbook', 'Apple', 2000, 1); 
+
 SELECT * FROM T_Articles;
+
+-- 	1.1 - Ouvrir l'invit de commande dans le bon dossier
+--		- Se connecter avec la commande mysql -u root -p
+--		- source Shop.sql
+
+--	1.2 - SHOW TABLES;
+
+--	1.3 - DESCRIBE T_Articles;
+
+-- 	1.4 - INSERT INTO T_Articles ( Description, Brand, UnitaryPrice) VALUES ('Souris sans fil', 'Logitoch', 299);
+--		- INSERT INTO T_Articles ( Description, Brand, UnitaryPrice) VALUES ('Carte Graphique', 'Nvdio', 800);
+
+--	1.5 - UPDATE T_Articles set brand='Logitech', unitaryPrice=85 WHERE IdArticle=1;
+--		- SELECT * FROM t_articles;
+
+--	1.6 - DELETE FROM T_Articles WHERE IdArticle=14;
+--		- SELECT * FROM t_articles;
+
+--	1.7 - SELECT * FROM t_articles where unitaryPrice>100;
+
+--	1.8 -  SELECT * FROM  T_Articles WHERE unitaryPrice>50 AND unitaryPrice<150; 
+
+--	1.9 - SELECT * FROM T_Articles ORDER BY UnitaryPrice;
+
+--	1.10 - SELECT Description FROM T_Articles;
+
+--	1.11 - SELECT Description, Brand, UnitaryPrice FROM T_Articles ORDER BY Brand, UnitaryPrice; 
+--			(Affiche l'ensemble des données triés par Marque, et ensuite par Prix)
+
+--	1.12 - 
+--	1.13 - SELECT idarticle, t_articles.description, brand, unitaryprice, catname from t_articles inner join t_categories;
