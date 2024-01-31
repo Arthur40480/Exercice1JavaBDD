@@ -7,10 +7,11 @@ import fr.fms.entities.Article;
 
 public class IDaoImpl implements Dao {
 	
-	@Override
+	
 	/** La méthode create nous permet d'ajouter un objet de type Article dans la bdd
 	 * @param article représente l'objet de type Article que l'on veux créer dans la bdd
 	 */
+	@Override
 	public void create(Article article) {
 		try(Statement statement = connection.createStatement()) {
 			String request = "INSERT INTO T_Articles (Description, Brand, UnitaryPrice)"
@@ -26,10 +27,19 @@ public class IDaoImpl implements Dao {
 		}
 		
 	}
-
+	/** La méthode delete nous permet de supprimer un objet de type Article dans la bdd
+	 * @param article représente l'objet de type Article que l'on veux supprimer de la bdd
+	 */
 	@Override
 	public void delete(Article article) {
-		// TODO Auto-generated method stub
+		try(Statement statement = connection.createStatement()) {
+			String request = "DELETE FROM T_Articles WHERE description = '" + article.getDescription() +"'";
+			int row = statement.executeUpdate(request);
+			if(row >= 0) System.out.println("Supression ok");
+		}catch(SQLException e) {
+			System.out.println("Erreur : Supression Impossible");
+			e.printStackTrace();
+		}
 		
 	}
 
