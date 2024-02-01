@@ -1,16 +1,17 @@
 package fr.fms.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-import javax.naming.spi.DirStateFactory.Result;
-
+import fr.fms.bdd.BddConnection;
 import fr.fms.entities.User;
 
 public class UserDao implements Dao<User>{
+	private Connection connection = BddConnection.getInstance().getConnection();
 	
 	/** La méthode create nous permet d'ajouter un objet de type User dans la bdd
 	 * @param user représente l'objet de type User que l'on veux créer dans la bdd

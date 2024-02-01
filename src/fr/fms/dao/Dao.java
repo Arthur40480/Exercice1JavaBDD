@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import fr.fms.bdd.*;
 
 public interface Dao<T> {
-	public Connection connection = BddConnection.getConnection();
 	public void create(T obj);
 	public T read(int id);
 	public boolean update(T obj);

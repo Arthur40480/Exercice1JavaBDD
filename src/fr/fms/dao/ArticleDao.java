@@ -1,14 +1,16 @@
 package fr.fms.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
+import fr.fms.bdd.BddConnection;
 import fr.fms.entities.Article;
 
 public class ArticleDao implements Dao<Article> {
+	private Connection connection = BddConnection.getInstance().getConnection();
 	
 	/** La méthode create nous permet d'ajouter un objet de type Article dans la bdd
 	 * @param article représente l'objet de type Article que l'on veux créer dans la bdd
