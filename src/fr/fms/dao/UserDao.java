@@ -150,6 +150,7 @@ public class UserDao implements Dao<User>{
 			ResultSet resultSet = ps.executeQuery();
 			if(resultSet.next()) {
 				System.out.println("Authentification réussie !");
+				System.out.println();
 				return true;
 			} else {
 				System.out.println("Accès refusé !");
