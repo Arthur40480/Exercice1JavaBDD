@@ -16,6 +16,7 @@ CREATE TABLE T_Articles (
 ) ENGINE = InnoDB;
 
 INSERT INTO T_Articles ( Description, Brand, UnitaryPrice ) VALUES ( 'Souris'	, 'Logitoch', 65);
+INSERT INTO T_Articles ( Description, Brand, UnitaryPrice ) VALUES ( 'Souris V2'	, 'Logitoch', 65);
 INSERT INTO T_Articles ( Description, Brand, UnitaryPrice ) VALUES ( 'Clavier'	, 'Microhard', 49.5);
 INSERT INTO T_Articles ( Description, Brand, UnitaryPrice ) VALUES ( 'Systeme d''exploitation'	, 'Fenetres Vistouille', 150);
 INSERT INTO T_Articles ( Description, Brand, UnitaryPrice ) VALUES ( 'Tapis souris'	, 'Chapeau Bleu', 5);

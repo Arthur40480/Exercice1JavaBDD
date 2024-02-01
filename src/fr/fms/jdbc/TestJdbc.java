@@ -12,7 +12,6 @@ import fr.fms.dao.IDaoImpl;
 
 public class TestJdbc {
 	public static void main(String[] args) {
-		ArrayList<Article> articleList = new ArrayList<>();
 		IDaoImpl dao = new IDaoImpl();
 		
 		Properties properties = new Properties();
@@ -56,25 +55,9 @@ public class TestJdbc {
 			e.printStackTrace();
 		}
 				
-		try(Connection connection = DriverManager.getConnection(dbUrl, dbLogin, dbPassword)) {	// Connection de java.sql
-			String stringSql = "SELECT * FROM T_Articles";		// Une fois connecté, réalisation d'un requête
-			try(Statement statement = connection.createStatement()) {
-				try(ResultSet resultSet = statement.executeQuery(stringSql)) {
-					while(resultSet.next()) {
-						int rsIdUser = resultSet.getInt(1); // Soit index 1 à n de la colonne
-						String rsDescription = resultSet.getString(2);
-						String rsBrand = resultSet.getString(3);
-						double rsPrice = resultSet.getDouble(4);
-						articleList.add(new Article(rsIdUser, rsDescription, rsBrand, rsPrice));
-					}
-				}
-			}
-			
-			for(Article article : articleList) {
-				System.out.println(article);
-			}
-		}catch(SQLException e) {
-			e.printStackTrace();
+		ArrayList<Article> articleList = dao.readAll();
+		for(Article article : articleList) {
+			System.out.println(article);
 		}
 	}
 }
