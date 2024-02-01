@@ -99,17 +99,22 @@ public class ArticleDao implements Dao<Article> {
 	 */
 	@Override
 	public boolean delete(Article article) {
-		try(Statement statement = connection.createStatement()) {
-			String request = "DELETE FROM T_Articles WHERE idArticle = '" + article.getIdArticle() +"'";
-			int row = statement.executeUpdate(request);
-			if(row >= 0) System.out.println("suppression ok");
-			return true;
+		String request = "DELETE FROM T_Articles WHERE idArticle=?;";
+		try(PreparedStatement ps = connection.prepareStatement(request)) {
+			ps.setInt(1, article.getIdArticle());
+			
+			if(ps.executeUpdate() > 0) {
+				System.out.println("Suppression ok");
+				return true;
+			}else {
+				System.err.println("ERREUR : La suppression a échoué.");
+				return false;
+			}
 		}catch(SQLException e) {
 			System.err.print("ERREUR : Suppression impossible ");
 			e.printStackTrace();
 			return false;
 		}
-		
 	}
 	
 	/** La méthode readAll nous permet de lire l'ensemble des objet de type Article dans la bdd
