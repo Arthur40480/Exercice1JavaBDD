@@ -8,11 +8,13 @@ import java.util.Properties;
 
 import fr.fms.entities.*;
 import fr.fms.bdd.*;
-import fr.fms.dao.IDaoImpl;
+import fr.fms.dao.ArticleDao;
+import fr.fms.dao.UserDao;
 
 public class TestJdbc {
 	public static void main(String[] args) {
-		IDaoImpl dao = new IDaoImpl();
+		ArticleDao dao = new ArticleDao();
+		UserDao daoUser = new UserDao();
 		
 		Properties properties = new Properties();
 		FileInputStream fileInputStream = null;
@@ -60,5 +62,9 @@ public class TestJdbc {
 		for(Article article : articleList) {
 			System.out.println(article);
 		}
+		
+		User bernard = new User("BernardB", "supermdp");
+		daoUser.create(bernard);
+		System.out.println(bernard.getUserId());
 	}
 }

@@ -34,10 +34,10 @@ public class ArticleDao implements Dao<Article> {
 	 * @return article qui est l'article que l'on souhaite lire
 	 */
 	@Override
-	public Article read(int id) {
+	public Article read(int idArticle) {
 		String request = "SELECT * FROM T_Articles WHERE idArticle=?;";
 		try(PreparedStatement ps = connection.prepareStatement(request)) {
-			ps.setInt(1, id);
+			ps.setInt(1, idArticle);
 			
 			try(ResultSet resultSet = ps.executeQuery()) {
 				if(resultSet.next()) {
