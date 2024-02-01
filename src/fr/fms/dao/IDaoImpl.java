@@ -23,7 +23,7 @@ public class IDaoImpl implements Dao<Article> {
 			
 			if(ps.executeUpdate() == 1) System.out.println("Insertion ok");
 		}catch(SQLException e) {
-			System.out.println("ERREUR : Insertion impossible");
+			System.err.print("ERREUR : Insertion impossible ");
 			e.printStackTrace();
 		}
 		
@@ -55,7 +55,7 @@ public class IDaoImpl implements Dao<Article> {
 				}
 			}
 		}catch(SQLException e) {
-			System.out.println("ERREUR : Lecture impossible");
+			System.err.print("ERREUR : Lecture impossible ");
 			e.printStackTrace();
 			return null;
 		}
@@ -80,7 +80,7 @@ public class IDaoImpl implements Dao<Article> {
 			return true;
 
 		}catch(SQLException e) {
-			System.out.println("ERREUR : Mise à jour impossible");
+			System.err.print("ERREUR : Mise à jour impossible ");
 			e.printStackTrace();
 			return false;
 		}
@@ -100,7 +100,7 @@ public class IDaoImpl implements Dao<Article> {
 			if(row >= 0) System.out.println("Supression ok");
 			return true;
 		}catch(SQLException e) {
-			System.out.println("ERREUR : Supression Impossible");
+			System.err.print("ERREUR : Supression impossible ");
 			e.printStackTrace();
 			return false;
 		}
@@ -127,8 +127,7 @@ public class IDaoImpl implements Dao<Article> {
 			}
 			return articleList;
 		}catch(SQLException e) {
-			System.out.println("ERREUR : Lecture impossible");
-			System.err.print("ERREUR : Lecture impossible");
+			System.err.print("ERREUR : Lecture impossible ");
 			e.printStackTrace();
 			return null;
 		}

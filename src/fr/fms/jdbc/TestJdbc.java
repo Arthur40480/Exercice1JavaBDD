@@ -34,6 +34,7 @@ public class TestJdbc {
 			System.out.println("Url : " + properties.get("db.url"));
 			System.out.println("Login : " + properties.get("db.login"));
 			System.out.println("Password : " + properties.get("db.password"));
+			System.out.println();
 
 		}catch(IOException e) {
 			System.err.println("ERREUR : Lecture du fichier impossible");

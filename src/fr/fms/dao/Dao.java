@@ -3,9 +3,7 @@ package fr.fms.dao;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import fr.fms.entities.Article;
 import fr.fms.bdd.*;
-
 
 public interface Dao<T> {
 	public Connection connection = BddConnection.getConnection();

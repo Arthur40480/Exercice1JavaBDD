@@ -19,6 +19,10 @@ public class Article {
 		this.price = price;
 	}
 	
+	/**
+	 * La méthode toString() permet d'afficher un Article et ces informations
+	 * @return String
+	 */
 	public String toString() {
 		return "Article numéro: " + getIdArticle() + " - " + getDescription() + " - Marque: " + getBrand() + " - Prix: " + getPrice();
 	}
