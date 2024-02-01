@@ -24,7 +24,7 @@ public class Article {
 	 * @return String
 	 */
 	public String toString() {
-		return "Article numéro: " + getIdArticle() + " - " + getDescription() + " - Marque: " + getBrand() + " - Prix: " + getPrice();
+		return "Article numéro: " + getIdArticle() + " - " + getDescription() + " - Marque: " + getBrand() + " - Prix: " + getPrice() + "€";
 	}
 
 	public int getIdArticle() {
