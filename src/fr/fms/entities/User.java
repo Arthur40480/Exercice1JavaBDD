@@ -21,7 +21,7 @@ public class User {
 	 * @return String
 	 */
 	public String toString() {
-		return "Id de l'utilisateur: " + getUserId() + " -  Login: " + getLogin() + " - Password: " + getPassword();
+		return "Id de l'utilisateur: " + getId() + " -  Login: " + getLogin() + " - Password: " + getPassword();
 	}
 	
 	public void setLogin(String login) {
@@ -40,7 +40,7 @@ public class User {
 		return password;
 	}
 	
-	public int getUserId() {
+	public int getId() {
 		return idUser;
 	}
 }

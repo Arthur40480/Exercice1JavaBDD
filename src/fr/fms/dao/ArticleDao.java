@@ -76,8 +76,13 @@ public class ArticleDao implements Dao<Article> {
 			ps.setDouble(3, article.getPrice());
 			ps.setInt(4, article.getIdArticle());
 			
-			if(ps.executeUpdate() > 0) System.out.println("Mise à jour ok");
-			return true;
+			if(ps.executeUpdate() > 0) {
+				System.out.println("Mise à jour ok");
+				return true;
+			} else {
+				System.err.println("ERREUR : La mise à jour de l'article a échoué.");
+				return false;
+			}
 
 		}catch(SQLException e) {
 			System.err.print("ERREUR : Mise à jour impossible ");
@@ -89,7 +94,7 @@ public class ArticleDao implements Dao<Article> {
 	
 	/** La méthode delete nous permet de supprimer un objet de type Article dans la bdd
 	 * @param article représente l'objet de type Article que l'on veux supprimer de la bdd
-	 * @return true si la supression à bien été éffectuer
+	 * @return true si la suppression à bien été éffectuer
 	 * @return false -> SINON retourne false
 	 */
 	@Override
@@ -97,10 +102,10 @@ public class ArticleDao implements Dao<Article> {
 		try(Statement statement = connection.createStatement()) {
 			String request = "DELETE FROM T_Articles WHERE idArticle = '" + article.getIdArticle() +"'";
 			int row = statement.executeUpdate(request);
-			if(row >= 0) System.out.println("Supression ok");
+			if(row >= 0) System.out.println("suppression ok");
 			return true;
 		}catch(SQLException e) {
-			System.err.print("ERREUR : Supression impossible ");
+			System.err.print("ERREUR : Suppression impossible ");
 			e.printStackTrace();
 			return false;
 		}

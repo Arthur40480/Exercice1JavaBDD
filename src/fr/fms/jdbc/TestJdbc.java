@@ -65,6 +65,9 @@ public class TestJdbc {
 		
 		User bernard = new User("BernardB", "supermdp");
 		daoUser.create(bernard);
-		System.out.println(bernard.getUserId());
+		System.out.println(daoUser.read(3));
+		daoUser.delete(daoUser.read(1));
+		System.out.println(daoUser.read(1));
+
 	}
 }

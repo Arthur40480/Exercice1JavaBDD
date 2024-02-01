@@ -32,8 +32,8 @@ public class UserDao implements Dao<User>{
 	 * @param idUser représente l'id de l'user que l'on veux lire dans la bdd
 	 * @return user qui est l'user que l'on souhaite lire
 	 */
-	@Override
-	public User read(int idUser) {
+	@Override 
+	public User read(int idUser) {	// TODO -> ATTENTION DOUBLON !
 		String request = "SELECT * FROM T_Users WHERE IdUser=?;";
 		try(PreparedStatement ps = connection.prepareStatement(request)) {
 			ps.setInt(1, idUser);
@@ -55,17 +55,57 @@ public class UserDao implements Dao<User>{
 			return null;
 		}
 	}
-
+	
+	/** La méthode update nous permet de mettre à jour un objet de type User dans la bdd
+	 * @param article représente l'objet de type User que l'on veux mettre à jour dans la bdd
+	 * @return true si la mise à jour à bien été éffectuer
+	 * @return false -> SINON retourne false
+	 */
 	@Override
 	public boolean update(User user) {
-		// TODO Auto-generated method stub
-		return false;
+		String request = "UPDATE T_Users SET Login=?, Password=? WHERE IdUser=?;";
+		try(PreparedStatement ps = connection.prepareStatement(request)) {
+			ps.setString(1, user.getLogin());
+			ps.setString(2, user.getPassword());
+			ps.setInt(3, user.getId());
+			
+			if(ps.executeUpdate() > 0) {
+				System.out.println("Mise à jour ok");
+				return true;
+			} else {
+				System.err.println("ERREUR : La mise à jour a échoué.");
+				return false;
+			}
+		}catch(SQLException e) {
+			System.err.print("ERREUR : Mise à jour impossible ");
+			e.printStackTrace();
+			return false;
+		}
 	}
-
+	
+	/** La méthode delete nous permet de supprimer un objet de type User dans la bdd
+	 * @param article représente l'objet de type User que l'on veux supprimer dans la bdd
+	 * @return true si la suppression à bien été éffectuer
+	 * @return false -> SINON retourne false
+	 */
 	@Override
 	public boolean delete(User user) {
-		// TODO Auto-generated method stub
-		return false;
+		String request = "DELETE FROM T_Users WHERE IdUser=?;";
+		try(PreparedStatement ps = connection.prepareStatement(request)) {
+			ps.setInt(1, user.getId());
+			
+			if(ps.executeUpdate() > 0) {
+				System.out.println("Suppression ok");
+				return true;
+			} else {
+				System.err.println("ERREUR : La suppression a échoué.");
+				return false;
+			}
+		}catch(SQLException e) {
+			System.err.print("ERREUR : Suppression impossible ");
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
