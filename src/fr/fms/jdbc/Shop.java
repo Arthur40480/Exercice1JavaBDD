@@ -43,7 +43,7 @@ public class Shop {
 		}
 		
 		if(daoUser.userExists(login, password)) {
-			System.out.println("-------- Liste des articles disponible --------");
+			System.out.println("-------- LISTE DES ARTICLES DISPONIBLE --------");
 			articleList = daoArticle.readAll();
 			for(Article article : articleList) {
 				System.out.println(article);

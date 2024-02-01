@@ -6,6 +6,13 @@ CREATE DATABASE Shop;
 Use Shop;
 
 -- ---------------------------------------------------------------------
+-- - Création d'un nouvel utilisateur pour la base de donnée Shop - --
+-- ---------------------------------------------------------------------
+CREATE USER 'invite'@'localhost' IDENTIFIED BY 'Azerty1234uioP*';
+GRANT ALL PRIVILEGES ON Shop* TO 'invite'@'localhost';
+FLUSH PRIVILEGES;
+
+-- ---------------------------------------------------------------------
 -- - Construction de la table des articles en vente - --
 -- ---------------------------------------------------------------------
 CREATE TABLE T_Articles (
