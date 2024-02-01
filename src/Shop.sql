@@ -29,6 +29,9 @@ INSERT INTO T_Articles ( Description, Brand, UnitaryPrice ) VALUES ( 'Batterie L
 INSERT INTO T_Articles ( Description, Brand, UnitaryPrice ) VALUES ( 'Casque Audio'	, 'Syno', 105);
 INSERT INTO T_Articles ( Description, Brand, UnitaryPrice ) VALUES ( 'WebCam'	, 'Logitoch', 755);
 
+-- ---------------------------------------------------------------------
+-- - Construction de la table des Categories d'article - --
+-- ---------------------------------------------------------------------
 CREATE TABLE T_Categories (
 	IdCategory 			INT(4)		PRIMARY KEY AUTO_INCREMENT,
 	CatName				VARCHAR(30)	NOT NULL,
@@ -38,6 +41,13 @@ CREATE TABLE T_Categories (
 INSERT INTO T_Categories ( CatName, Description) VALUES ( 'Périphérique'	, 'Dispositif connecté à un système de traitement de l''information central');
 INSERT INTO T_Categories ( CatName, Description) VALUES ( 'Composant'	, 'Les composants font référence au matériel interne d''un PC');
 
+-- ---------------------------------------------------------------------
+-- - On ajoute à la table article un colonne appelée idCategory - --
+-- - On lui ajoute une contrainte de clé étrangère à cette nouvelle colonne - --
+-- - Cela signifie que cette colonne doit contenir des valeurs qui correspondent à des valeurs existantes dans une autre table. 
+-- - Dans notre cas spécifique, cela signifie que la colonne IdCategory de la table T_Articles doit contenir des valeurs qui existent 
+-- - déjà dans la colonne IdCategory de la table T_Categories.
+-- ---------------------------------------------------------------------
 ALTER TABLE T_Articles ADD COLUMN IdCategory INT(4);
 ALTER TABLE T_Articles ADD FOREIGN KEY(IdCateory) REFERENCES T_Categories(IdCategory);
 
@@ -56,7 +66,21 @@ UPDATE T_ARTICLES SET IdCategory = 1 WHERE IdArticle = 12;
 
 INSERT INTO T_Articles ( Description, Brand, UnitaryPrice, IdCategory ) VALUES ( 'Macbook', 'Apple', 2000, 1); 
 
+-- ---------------------------------------------------------------------
+-- - Construction de la table des Users - --
+-- ---------------------------------------------------------------------
+CREATE TABLE T_Users (
+	IdUser 			INT(4)		PRIMARY KEY AUTO_INCREMENT,
+	Login				VARCHAR(20)	NOT NULL,
+	Password			VARCHAR(20)	NOT NULL
+) ENGINE = InnoDB;
+
+INSERT INTO T_Users (Login, Password) VALUES ('ArthurG', '123456789');
+INSERT INTO T_Users (Login, Password) VALUES ('AmbreL', 'azertyuiop');
+
 SELECT * FROM T_Articles;
+SELECT * FROM T_Categories;
+SELECT * FROM T_Users;
 
 -- 	1.1 - Ouvrir l'invit de commande dans le bon dossier
 --		- Se connecter avec la commande mysql -u root -p

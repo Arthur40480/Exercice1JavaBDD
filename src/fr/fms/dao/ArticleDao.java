@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import fr.fms.entities.Article;
 
-public class IDaoImpl implements Dao<Article> {
+public class ArticleDao implements Dao<Article> {
 	
 	/** La méthode create nous permet d'ajouter un objet de type Article dans la bdd
 	 * @param article représente l'objet de type Article que l'on veux créer dans la bdd
