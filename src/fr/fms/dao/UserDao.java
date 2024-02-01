@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import fr.fms.entities.User;
 
 public class UserDao implements Dao<User>{
@@ -107,11 +109,30 @@ public class UserDao implements Dao<User>{
 			return false;
 		}
 	}
-
+	
+	/** La méthode readAll nous permet de lire l'ensemble des objet de type User dans la bdd
+	 * @return articleList est la liste de tous les Users présents dans la base de donnée
+	 */
 	@Override
 	public ArrayList<User> readAll() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<User> userList = new ArrayList<>();
+		String request = "SELECT * FROM T_Users;";
+		try(PreparedStatement ps = connection.prepareStatement(request)) {
+			ResultSet resultSet = ps.executeQuery();
+			while(resultSet.next()) {
+				int userId = resultSet.getInt(1);
+				String login = resultSet.getString(2);
+				String password = resultSet.getString(3);
+				
+				User user = new User(userId, login, password);
+				userList.add(user);
+			}
+			return userList;
+		}catch(SQLException e) {
+			System.err.print("ERREUR : Lecture impossible ");
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 }
