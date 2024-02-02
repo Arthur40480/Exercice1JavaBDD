@@ -98,6 +98,7 @@ public class Shop {
 		switch(userChoice) {
 		case 1:
 			System.out.println("------------------- Liste des articles -----------------------");
+			System.out.println();
 			displayAllArticles(categoryList);
 			System.out.println("Veuillez indiquer la référence de l'article à ajouter:");
 //			int refSelectedArticleToAdd = validateInput(categoryList.size()) - 1;
@@ -148,14 +149,17 @@ public class Shop {
 	 * @param articleList représente la liste qui contient l'ensemble des articles
 	 */
 	public static void displayAllArticles(ArrayList<Category> categoryList) {
-		System.out.println("Référence                    Categorie                    Description                    Marque                    Prix");
-		for(Category category : categoryList) {
-			for(Article article : category.getArticleList()) {
-				System.out.println(article.getIdArticle() + "                    " + category.getName() + "                    "
-									+ article.getDescription() + "                    " + article.getBrand() + "                    "
-									+ article.getPrice());
-			}
-		}
-		System.out.println();
+	    System.out.printf("%-20s %-20s %-30s %-20s %-10s\n", "Référence", "Catégorie", "Description", "Marque", "Prix");
+	    System.out.println();
+	    for(Category category : categoryList) {
+	        for(Article article : category.getArticleList()) {
+	            System.out.printf("%-20s %-20s %-30s %-20s %-10s\n", 
+	                              article.getIdArticle(), category.getName(), 
+	                              article.getDescription(), article.getBrand(), article.getPrice());
+	        }
+	        System.out.println();
+	    }
+	    System.out.println();
+	
 	}
 }
