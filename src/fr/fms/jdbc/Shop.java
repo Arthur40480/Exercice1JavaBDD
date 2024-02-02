@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import fr.fms.buisness.IShoppingImpl;
 import fr.fms.dao.ArticleDao;
 import fr.fms.dao.UserDao;
 import fr.fms.entities.Article;
@@ -12,10 +13,10 @@ import fr.fms.entities.User;
 public class Shop {
 	public static void main(String[] args) {
 		
-//		System.out.println("-------- DIGITAL DEPOT --------");
-//		User userCurrent = userConnect();
-//		System.out.println("Bonjour et bienvenu " + userCurrent.getLogin() + " !");
-		displayMenu();
+		System.out.println("-------- DIGITAL DEPOT --------");
+		User userCurrent = userConnect();
+		System.out.println("Bonjour et bienvenu " + userCurrent.getLogin() + " !");
+		displayMenu(userCurrent);
 	}
 	
 	/**
@@ -47,7 +48,7 @@ public class Shop {
 			
 			currentUser = daoUser.userExists(login, password);
 		}
-		scanner.close();
+		
 		return currentUser;	
 	}
 	
@@ -74,6 +75,7 @@ public class Shop {
 				scanner.next();
 			}
 		}
+		
 		return userChoice;
 	}
 	
@@ -81,9 +83,10 @@ public class Shop {
 	 * Méthode permettant d'afficher le menu principal
 	 * @param userCurrent est l'utilisateur connecter
 	 */
-	public static void displayMenu() {
+	public static void displayMenu(User userCurrent) {
 		ArticleDao daoArticle = new ArticleDao();
-		Scanner scanner = new Scanner(System.in);
+		IShoppingImpl iShoppingImpl = new IShoppingImpl();
+		ArrayList<Article> articleList;
 		
 		System.out.println("------------------- taper le numéro correspondant -----------------------");
 		System.out.println("1: Ajouter un article - 2: Retirer un article - 3: Afficher notre panier - 4: Payer notre commande - 5: Sortir");
@@ -93,8 +96,14 @@ public class Shop {
 		switch(userChoice) {
 		case 1:
 			System.out.println("------------------- Liste des articles -----------------------");
-			displayAllArticles(daoArticle.readAll());			
+			articleList = daoArticle.readAll();
+			displayAllArticles(articleList);
+			System.out.println("Veuillez indiquer la référence de l'article à ajouter:");
+			int refSelectedArticle = validateInput(articleList.size()) - 1;
+			iShoppingImpl.addToCart(articleList.get(refSelectedArticle), userCurrent.getCart());
+			displayMenu(userCurrent);
 			break;
+			
 		case 2:
 			System.out.println("Choix 2");
 			break;
@@ -110,10 +119,16 @@ public class Shop {
 		
 		}
 	}
+	
+	/**
+	 * Méthode qui nous permet d'afficher l'ensemble des articles disponible
+	 * @param articleList représente la liste qui contient l'ensemble des articles
+	 */
 	public static void displayAllArticles(ArrayList<Article> articleList) {
 		for(Article article : articleList) {
 			System.out.println("Référence: " + article.getIdArticle() + "       " + article.getDescription() +
 								"   Marque: " + article.getBrand() + "   Prix: " + article.getPrice() + "€");	
 		}
+		System.out.println();
 	}
 }

@@ -16,6 +16,7 @@ public class IShoppingImpl implements IShopping {
 	public ArrayList<Article> addToCart(Article article, ArrayList<Article> cart) {
 		cart.add(article);
 		System.out.println("L'article a bien été ajouté au panier !");
+		System.out.println();
 		return cart;
 	}
 	
