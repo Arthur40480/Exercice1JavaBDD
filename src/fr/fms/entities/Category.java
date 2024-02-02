@@ -8,6 +8,13 @@ public class Category {
 	private String description;
 	private ArrayList<Article> articleList;
 	
+	public Category(int idCategory, String name, String description, ArrayList<Article> articleList) {
+		this.idCategory = idCategory;
+		this.name = name;
+		this.description = description;
+		this.articleList = new ArrayList<Article>();
+	}
+	
 	public Category(String name, String description, ArrayList<Article> articleList) {
 		this.name = name;
 		this.description = description;

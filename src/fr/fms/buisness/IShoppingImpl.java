@@ -81,14 +81,16 @@ public class IShoppingImpl implements IShopping {
 	}
 	
 	/**
-	 * Méthode qui permet de passer une commande à l'utilisateur
+	 * Méthode qui permet de passer une commande à l'utilisateur, et de l'ajouter à la liste de commande de l'user
 	 * @param user représente l'utilisateur qui veut passer commande
 	 * @return order représente la commande
 	 */
 	@Override
 	public Order placeOrder(User user) {
 		Order order = new Order(user.getCart(), calculateTotal(user.getCart()), user);
+		user.getOrderList().add(order);
 		System.out.println("Commande effectuer ! Merci !");
+		
 		return order;		
 	}
 

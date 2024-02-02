@@ -26,10 +26,6 @@ public class Order {
 		return idOrder;
 	}
 
-	public void setIdOrder(int idOrder) {
-		this.idOrder = idOrder;
-	}
-
 	public ArrayList<Article> getArticleList() {
 		return articleList;
 	}

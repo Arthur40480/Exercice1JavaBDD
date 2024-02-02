@@ -86,17 +86,16 @@ public class Shop {
 	public static void displayMenu(User userCurrent) {
 		ArticleDao daoArticle = new ArticleDao();
 		IShoppingImpl iShoppingImpl = new IShoppingImpl();
-		ArrayList<Article> articleList;
+		ArrayList<Article> articleList = daoArticle.readAll();
 		
 		System.out.println("------------------- taper le numéro correspondant -----------------------");
-		System.out.println("1: Ajouter un article - 2: Retirer un article - 3: Afficher notre panier - 4: Payer notre commande - 5: Sortir");
+		System.out.println("1: Ajouter un article - 2: Retirer un article - 3: Afficher le panier - 4: Payer la commande - 5: Sortir");
 		
 		int userChoice = validateInput(5);
 		
 		switch(userChoice) {
 		case 1:
 			System.out.println("------------------- Liste des articles -----------------------");
-			articleList = daoArticle.readAll();
 			displayAllArticles(articleList);
 			System.out.println("Veuillez indiquer la référence de l'article à ajouter:");
 			int refSelectedArticleToAdd = validateInput(articleList.size()) - 1;
@@ -123,8 +122,17 @@ public class Shop {
 			break;
 			
 		case 4:
-			System.out.println("Choix 4");
-			break;
+			if(userCurrent.getCart().size() == 0) {
+				System.out.println("Impossible de finaliser votre commande, votre panier est vide !");
+				System.out.println();
+				displayMenu(userCurrent);
+				break;
+			}else {
+				iShoppingImpl.placeOrder(userCurrent);
+				displayMenu(userCurrent);
+				break;
+			}
+		
 		case 5:
 			System.out.println("Au revoir et à bientôt sur DIGITAL DEPOT !");
 			System.exit(0);

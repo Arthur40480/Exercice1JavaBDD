@@ -70,6 +70,7 @@ UPDATE T_ARTICLES SET IdCategory = 2 WHERE IdArticle = 9;
 UPDATE T_ARTICLES SET IdCategory = 2 WHERE IdArticle = 10;
 UPDATE T_ARTICLES SET IdCategory = 1 WHERE IdArticle = 11;
 UPDATE T_ARTICLES SET IdCategory = 1 WHERE IdArticle = 12;
+UPDATE T_ARTICLES SET IdCategory = 1 WHERE IdArticle = 13;
 
 INSERT INTO T_Articles ( Description, Brand, UnitaryPrice, IdCategory ) VALUES ( 'Macbook', 'Apple', 2000, 1); 
 
