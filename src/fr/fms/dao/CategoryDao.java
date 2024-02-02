@@ -109,10 +109,29 @@ public class CategoryDao implements Dao<Category> {
 		}
 	}
 
+	/** La méthode delete nous permet de supprimer un objet de type Category dans la bdd
+	 * @param article représente l'objet de type Category que l'on veux supprimer de la bdd
+	 * @return true si la suppression à bien été éffectuer
+	 * @return false -> SINON retourne false
+	 */
 	@Override
-	public boolean delete(Category obj) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delete(Category category) {
+		String request = "DELETE FROM T_Categories WHERE idCategory=?;";
+		try(PreparedStatement ps = connection.prepareStatement(request)) {
+			ps.setInt(1, category.getIdCategory());
+			
+			if(ps.executeUpdate() > 0) {
+				System.out.println("Suppression ok");
+				return true;
+			}else {
+				System.err.println("ERREUR : La suppression a échoué.");
+				return false;
+			}
+		}catch(SQLException e) {
+			System.err.print("ERREUR : Suppression impossible ");
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
