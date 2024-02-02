@@ -34,7 +34,24 @@ public class Category {
 	public String toString() {
 		return "Id de la categorie: " + getIdCategory() + " -  Nom: " + getName() + " - Description: " + getDescription();
 	}
-
+	
+	/**
+	 * La méthode permet de récupérer un article dans la liste d'article via sont id
+	 * @param idArticle 
+	 * @return article représente l'article qui à été trouver via l'idArticle, SINON return null
+	 */
+	public Article findArticleById(int idArticle) {
+		for(Article article : getArticleList()) {
+			if(article.getIdArticle() == idArticle) {
+				return article;
+			} else {
+				System.out.println("L'article est introuvable dans cette catégorie");
+				
+			}
+		}
+		return null;
+	}
+	
 	public int getIdCategory() {
 		return idCategory;
 	}

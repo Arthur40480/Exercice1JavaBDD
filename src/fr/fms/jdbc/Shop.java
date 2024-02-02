@@ -86,6 +86,7 @@ public class Shop {
 	 * @param userCurrent est l'utilisateur connecter
 	 */
 	public static void displayMenu(User userCurrent) {
+		Scanner scanner = new Scanner(System.in);
 		CategoryDao categoryDao = new CategoryDao();
 		IShoppingImpl iShoppingImpl = new IShoppingImpl();
 		ArrayList<Category> categoryList = categoryDao.readAll();
@@ -101,6 +102,17 @@ public class Shop {
 			System.out.println();
 			displayAllArticles(categoryList);
 			System.out.println("Veuillez indiquer la référence de l'article à ajouter:");
+			int articleSelected;
+			while(true) {
+				try {
+					articleSelected = scanner.nextInt();
+
+				} catch(InputMismatchException e) {
+					System.err.print("ERREUR : Saisie de mauvais caractère ");
+					e.printStackTrace();
+					scanner.next();
+				}
+			}
 //			int refSelectedArticleToAdd = validateInput(categoryList.size()) - 1;
 //			iShoppingImpl.addToCart(categoryList.get(refSelectedArticleToAdd), userCurrent.getCart());
 //			displayMenu(userCurrent);
