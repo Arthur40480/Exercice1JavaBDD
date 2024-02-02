@@ -3,6 +3,8 @@ package fr.fms.buisness;
 import java.util.ArrayList;
 
 import fr.fms.entities.Article;
+import fr.fms.entities.Order;
+import fr.fms.entities.User;
 
 public class IShoppingImpl implements IShopping {
 	
@@ -78,10 +80,16 @@ public class IShoppingImpl implements IShopping {
 		return totalPrice;
 	}
 	
+	/**
+	 * Méthode qui permet de passer une commande à l'utilisateur
+	 * @param user représente l'utilisateur qui veut passer commande
+	 * @return order représente la commande
+	 */
 	@Override
-	public void processPayment() {
-		// TODO Vas générer une nouvelle commande !
-		
+	public Order placeOrder(User user) {
+		Order order = new Order(user.getCart(), calculateTotal(user.getCart()), user);
+		System.out.println("Commande effectuer ! Merci !");
+		return order;		
 	}
 
 }
