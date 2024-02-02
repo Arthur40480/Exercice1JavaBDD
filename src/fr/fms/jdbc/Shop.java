@@ -6,17 +6,16 @@ import java.util.Scanner;
 
 import fr.fms.dao.ArticleDao;
 import fr.fms.dao.UserDao;
-import fr.fms.entities.Account;
 import fr.fms.entities.Article;
 import fr.fms.entities.User;
 
 public class Shop {
 	public static void main(String[] args) {
 		
-		System.out.println("-------- DIGITAL DEPOT --------");
-		User userCurrent = userConnect();
-		System.out.println("Bonjour et bienvenu " + userCurrent.getLogin() + " !");
-		displayMenu(userCurrent);
+//		System.out.println("-------- DIGITAL DEPOT --------");
+//		User userCurrent = userConnect();
+//		System.out.println("Bonjour et bienvenu " + userCurrent.getLogin() + " !");
+		displayMenu();
 	}
 	
 	/**
@@ -53,37 +52,48 @@ public class Shop {
 	}
 	
 	/**
-	 * Méthode permettant d'afficher le menu principal
-	 * @param userCurrent est l'utilisateur connecter
+	 * Méthode permettant de vérifier les entrées saisie par l'utilisateur
+	 * @param maxChoice représente un int qui est le choix maximum que l'utilisateur peux faire
+	 * @return userChoice représente le choix éffectuer par l'utilisateur, une fois vérifier
 	 */
-	public static void displayMenu(User userCurrent) {
-		ArticleDao daoArticle = new ArticleDao();
-		int userChoice;
+	public static int validateInput(int maxChoice) {
 		Scanner scanner = new Scanner(System.in);
-		
-		System.out.println("------------------- taper le numéro correspondant -----------------------");
-		System.out.println("1: Ajouter un article - 2: Retirer un article - 3: Afficher notre panier - 4: Payer notre commande - 5: Sortir");
-		
+		int userChoice;
 		while(true) {
 			try {
 				userChoice = scanner.nextInt();
-				if(userChoice > 0 && userChoice < 6) {
+				if(userChoice > 0 && userChoice < maxChoice + 1) {
 					break;
 				} else {
-					System.out.println("Erreur : veuillez saisir numéro de choix valable (1 - 5)");
+					System.out.println("Erreur : veuillez saisir numéro de choix valable (1 - " + maxChoice + ")");
 				}
 			} catch(InputMismatchException e) {
-				System.out.println("Erreur : veuillez saisir numéro de choix valable (1 - 5)");
+				System.out.println("Erreur : veuillez saisir numéro de choix valable (1 - " + maxChoice + ")");
 				System.err.print("ERREUR : Saisie de mauvais caractère ");
 				e.printStackTrace();
 				scanner.next();
 			}
 		}
+		return userChoice;
+	}
+	
+	/**
+	 * Méthode permettant d'afficher le menu principal
+	 * @param userCurrent est l'utilisateur connecter
+	 */
+	public static void displayMenu() {
+		ArticleDao daoArticle = new ArticleDao();
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("------------------- taper le numéro correspondant -----------------------");
+		System.out.println("1: Ajouter un article - 2: Retirer un article - 3: Afficher notre panier - 4: Payer notre commande - 5: Sortir");
+		
+		int userChoice = validateInput(5);
 		
 		switch(userChoice) {
 		case 1:
-			System.out.println("Choix 1");
-			daoArticle.readAll();
+			System.out.println("------------------- Liste des articles -----------------------");
+			displayAllArticles(daoArticle.readAll());			
 			break;
 		case 2:
 			System.out.println("Choix 2");
@@ -98,6 +108,12 @@ public class Shop {
 			System.out.println("Choix 5");
 			break;
 		
+		}
+	}
+	public static void displayAllArticles(ArrayList<Article> articleList) {
+		for(Article article : articleList) {
+			System.out.println("Référence: " + article.getIdArticle() + "       " + article.getDescription() +
+								"   Marque: " + article.getBrand() + "   Prix: " + article.getPrice() + "€");	
 		}
 	}
 }
