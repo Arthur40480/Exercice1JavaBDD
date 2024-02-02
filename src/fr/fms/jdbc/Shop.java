@@ -118,13 +118,16 @@ public class Shop {
 			}
 
 		case 3:
-			System.out.println("Choix 3");
+			iShoppingImpl.displayCart(userCurrent.getCart());
+			displayMenu(userCurrent);
 			break;
+			
 		case 4:
 			System.out.println("Choix 4");
 			break;
 		case 5:
-			System.out.println("Choix 5");
+			System.out.println("Au revoir et à bientôt sur DIGITAL DEPOT !");
+			System.exit(0);
 			break;
 		
 		}
