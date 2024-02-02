@@ -99,14 +99,24 @@ public class Shop {
 			articleList = daoArticle.readAll();
 			displayAllArticles(articleList);
 			System.out.println("Veuillez indiquer la référence de l'article à ajouter:");
-			int refSelectedArticle = validateInput(articleList.size()) - 1;
-			iShoppingImpl.addToCart(articleList.get(refSelectedArticle), userCurrent.getCart());
+			int refSelectedArticleToAdd = validateInput(articleList.size()) - 1;
+			iShoppingImpl.addToCart(articleList.get(refSelectedArticleToAdd), userCurrent.getCart());
 			displayMenu(userCurrent);
 			break;
 			
 		case 2:
-			System.out.println("Choix 2");
-			break;
+			iShoppingImpl.displayCart(userCurrent.getCart());
+			if(userCurrent.getCart().size() == 0) {
+				displayMenu(userCurrent);
+				break;
+			} else {
+				System.out.println("Veuillez indiquer la référence de l'article à retirer:");
+				int refSelectedArticleToRemove = validateInput(userCurrent.getCart().size()) - 1;
+				iShoppingImpl.removeToCart(userCurrent.getCart(), userCurrent.getCart().get(refSelectedArticleToRemove));
+				displayMenu(userCurrent);
+				break;
+			}
+
 		case 3:
 			System.out.println("Choix 3");
 			break;

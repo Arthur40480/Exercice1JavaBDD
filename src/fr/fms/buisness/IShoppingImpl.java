@@ -26,6 +26,7 @@ public class IShoppingImpl implements IShopping {
 	 */
 	@Override
 	public void displayCart(ArrayList<Article> cart) {
+		int idArticleInCart = 1;
 		System.out.println("------ PANIER ------");
 		System.out.println();
 		
@@ -33,11 +34,14 @@ public class IShoppingImpl implements IShopping {
 			System.out.println("Votre panier est vide !");
 			System.out.println();
 			System.out.println("Total: " + calculateTotal(cart) + "€");
+			System.out.println();
 		}else {
 			for(Article article : cart) {
-				System.out.println("Référence:" + article.getIdArticle() + "- " + article.getDescription() + "     " + article.getBrand() + "     " + article.getPrice() + "€");
+				System.out.println("Référence: " + idArticleInCart + "     " + article.getDescription() + "     " + article.getBrand() + "     " + article.getPrice() + "€");
+				idArticleInCart++;
 			}
 			System.out.println("Total: " + calculateTotal(cart) + "€");
+			System.out.println();
 		}				
 	}
 	
@@ -52,8 +56,10 @@ public class IShoppingImpl implements IShopping {
 		boolean removed = cart.remove(article);
 		if(removed) {
 			System.out.println("L'article à bien été retiré du panier !");
+			System.out.println();
 		}else {
 			System.out.println("L'article n'était pas dans le panier");
+			System.out.println();
 		}
 		return cart;		
 	}
