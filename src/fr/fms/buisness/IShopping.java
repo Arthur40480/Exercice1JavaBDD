@@ -1,8 +1,8 @@
 package fr.fms.buisness;
 
-public interface IShopping<Article> {
-	public void addToCart(Article article);
+public interface IShopping {
+	public void addToCart();
 	public void displayCart();
-	public void removeToCart(Article article);
+	public void removeToCart();
 	public void processPayment();
 }
