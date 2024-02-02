@@ -14,12 +14,11 @@ import fr.fms.entities.User;
 
 public class Shop {
 	public static void main(String[] args) {
-		CategoryDao categoryDao = new CategoryDao();
-		System.out.println(categoryDao.readAll());
-//		System.out.println("-------- DIGITAL DEPOT --------");
-//		User userCurrent = userConnect();
-//		System.out.println("Bonjour et bienvenu " + userCurrent.getLogin() + " !");
-//		displayMenu(userCurrent);
+
+		System.out.println("-------- DIGITAL DEPOT --------");
+		User userCurrent = userConnect();
+		System.out.println("Bonjour et bienvenu " + userCurrent.getLogin() + " !");
+		displayMenu(userCurrent);
 	}
 	
 	/**
@@ -87,9 +86,9 @@ public class Shop {
 	 * @param userCurrent est l'utilisateur connecter
 	 */
 	public static void displayMenu(User userCurrent) {
-		ArticleDao daoArticle = new ArticleDao();
+		CategoryDao categoryDao = new CategoryDao();
 		IShoppingImpl iShoppingImpl = new IShoppingImpl();
-		ArrayList<Article> articleList = daoArticle.readAll();
+		ArrayList<Category> categoryList = categoryDao.readAll();
 		
 		System.out.println("------------------- taper le numéro correspondant -----------------------");
 		System.out.println("1: Ajouter un article - 2: Retirer un article - 3: Afficher le panier - 4: Payer la commande - 5: Sortir");
@@ -99,11 +98,11 @@ public class Shop {
 		switch(userChoice) {
 		case 1:
 			System.out.println("------------------- Liste des articles -----------------------");
-			displayAllArticles(articleList);
+			displayAllArticles(categoryList);
 			System.out.println("Veuillez indiquer la référence de l'article à ajouter:");
-			int refSelectedArticleToAdd = validateInput(articleList.size()) - 1;
-			iShoppingImpl.addToCart(articleList.get(refSelectedArticleToAdd), userCurrent.getCart());
-			displayMenu(userCurrent);
+//			int refSelectedArticleToAdd = validateInput(categoryList.size()) - 1;
+//			iShoppingImpl.addToCart(categoryList.get(refSelectedArticleToAdd), userCurrent.getCart());
+//			displayMenu(userCurrent);
 			break;
 			
 		case 2:
@@ -148,10 +147,14 @@ public class Shop {
 	 * Méthode qui nous permet d'afficher l'ensemble des articles disponible
 	 * @param articleList représente la liste qui contient l'ensemble des articles
 	 */
-	public static void displayAllArticles(ArrayList<Article> articleList) {
-		for(Article article : articleList) {
-			System.out.println("Référence: " + article.getIdArticle() + "       " + article.getDescription() +
-								"   Marque: " + article.getBrand() + "   Prix: " + article.getPrice() + "€");	
+	public static void displayAllArticles(ArrayList<Category> categoryList) {
+		System.out.println("Référence                    Categorie                    Description                    Marque                    Prix");
+		for(Category category : categoryList) {
+			for(Article article : category.getArticleList()) {
+				System.out.println(article.getIdArticle() + "                    " + category.getName() + "                    "
+									+ article.getDescription() + "                    " + article.getBrand() + "                    "
+									+ article.getPrice());
+			}
 		}
 		System.out.println();
 	}

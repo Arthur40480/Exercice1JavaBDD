@@ -32,7 +32,7 @@ public class Category {
 	 * @return String
 	 */
 	public String toString() {
-		return "Id de la categorie: " + getIdCategory() + " -  Nom: " + getName() + " - Description: " + getDescription() + getArticleList();
+		return "Id de la categorie: " + getIdCategory() + " -  Nom: " + getName() + " - Description: " + getDescription();
 	}
 
 	public int getIdCategory() {
