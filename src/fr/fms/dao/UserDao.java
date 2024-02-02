@@ -136,12 +136,12 @@ public class UserDao implements Dao<User>{
 		}
 	}
 	
-	/** La méthode userExists nous permet de vérifier si un user exist via un login et un password
+	/** La méthode userExists nous permet de vérifier si un user exist via un login et un password et nous le renvoi
 	 * @param login qui représente le login que l'on vas vérifier dans la bdd
 	 * @param password qui représente le password que l'on vas vérifier dans la bdd
-	 * @return boolean true si le login et password sont trouvé, SINON false;
+	 * @return currentUser sir le User existe SINON retourne null
 	 */
-	public boolean userExists(String login, String password) {
+	public User userExists(String login, String password) {
 		String request = "SELECT * FROM T_Users WHERE Login=? AND Password=?;";
 		try(PreparedStatement ps = connection.prepareStatement(request)) {
 			ps.setString(1, login);
@@ -149,17 +149,22 @@ public class UserDao implements Dao<User>{
 			
 			ResultSet resultSet = ps.executeQuery();
 			if(resultSet.next()) {
+				int userId = resultSet.getInt("IdUser");
+				String userLogin = resultSet.getString("Login");
+				String userPassword = resultSet.getString("Password");
+				
+				User currentUser = new User(userId, userLogin, userPassword);
 				System.out.println("Authentification réussie !");
 				System.out.println();
-				return true;
+				return currentUser;
 			} else {
 				System.out.println("Accès refusé !");
-				return false;
+				return null;
 			}
 		}catch(SQLException e) {
 			System.err.print("ERREUR : Verification Impossible ");
 			e.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 }
