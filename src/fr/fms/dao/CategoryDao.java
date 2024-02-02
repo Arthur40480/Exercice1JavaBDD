@@ -134,9 +134,47 @@ public class CategoryDao implements Dao<Category> {
 		}
 	}
 
+	/** La méthode readAll nous permet de lire l'ensemble des objet de type Article dans la bdd
+	 * @return articleList est la liste de tous les Articles présents dans la base de donnée
+	 */
 	@Override
-	public ArrayList readAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Category> readAll() {
+		ArrayList<Article> articleList = new ArrayList<Article>();
+		ArrayList<Category> categoryList = new ArrayList<Category>();
+		String firstRequest = "SELECT * FROM T_Categories;";
+		String secondRequest = "SELECT * FROM T_Articles WHERE IdCategory=?;";
+
+		try(PreparedStatement ps = connection.prepareStatement(firstRequest)) {
+			ResultSet resultSet = ps.executeQuery();
+			while(resultSet.next()) {
+				int idCategory = resultSet.getInt(1);
+				String name = resultSet.getString(2);
+				String description = resultSet.getString(3);
+					
+				Category category = new Category(idCategory, name, description, articleList);
+				
+				try(PreparedStatement ps2 = connection.prepareStatement(secondRequest)) {	
+					ps2.setInt(1, idCategory);
+					ResultSet resultSet2 = ps2.executeQuery();
+					while(resultSet2.next()) {
+						int idArticle = resultSet2.getInt(1);
+						String descriptionArticle = resultSet2.getString(2);
+						String brandArticle = resultSet2.getString(3);
+						double priceArticle = resultSet2.getDouble(4);
+						
+						Article article = new Article(idArticle, descriptionArticle, brandArticle, priceArticle);
+						category.getArticleList().add(article);
+						
+					}
+				categoryList.add(category);
+				}
+			}
+			return categoryList;
+		}catch(SQLException e) {
+			System.err.print("ERREUR : Lecture impossible ");
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 }

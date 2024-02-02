@@ -12,7 +12,7 @@ public class Article {
 		this.brand = brand;
 		this.price = price;
 	}
-	
+		
 	public Article(String description, String brand, double price) {
 		this.description = description;
 		this.brand = brand;
@@ -24,7 +24,8 @@ public class Article {
 	 * @return String
 	 */
 	public String toString() {
-		return "Article numéro: " + getIdArticle() + " - " + getDescription() + " - Marque: " + getBrand() + " - Prix: " + getPrice() + "€";
+		return "Article numéro: " + getIdArticle() + " - " + getDescription() + " - Marque: " 
+				+ getBrand() + " - Prix: " + getPrice() + "€";
 	}
 
 	public int getIdArticle() {
@@ -58,4 +59,5 @@ public class Article {
 			this.price = price;
 		}
 	}
+	
 }

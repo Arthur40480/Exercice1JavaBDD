@@ -124,7 +124,7 @@ public class ArticleDao implements Dao<Article> {
 	 */
 	@Override
 	public ArrayList<Article> readAll() {
-		ArrayList<Article> articleList = new ArrayList<>();
+		ArrayList<Article> articleList = new ArrayList<Article>();
 		String request = "SELECT * FROM T_Articles;";
 		try(PreparedStatement ps = connection.prepareStatement(request)) {
 			ResultSet resultSet = ps.executeQuery();
@@ -138,6 +138,7 @@ public class ArticleDao implements Dao<Article> {
 				articleList.add(article);				
 			}
 			return articleList;
+			
 		}catch(SQLException e) {
 			System.err.print("ERREUR : Lecture impossible ");
 			e.printStackTrace();

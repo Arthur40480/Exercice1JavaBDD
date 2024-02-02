@@ -15,6 +15,12 @@ public class Category {
 		this.articleList = new ArrayList<Article>();
 	}
 	
+	public Category(int idCategory, String name, String description) {
+		this.idCategory = idCategory;
+		this.name = name;
+		this.description = description;
+	}
+	
 	public Category(String name, String description, ArrayList<Article> articleList) {
 		this.name = name;
 		this.description = description;
@@ -26,7 +32,7 @@ public class Category {
 	 * @return String
 	 */
 	public String toString() {
-		return "Id de la categorie: " + getIdCategory() + " -  Nom: " + getName() + " - Description: " + getDescription();
+		return "Id de la categorie: " + getIdCategory() + " -  Nom: " + getName() + " - Description: " + getDescription() + getArticleList();
 	}
 
 	public int getIdCategory() {

@@ -6,17 +6,20 @@ import java.util.Scanner;
 
 import fr.fms.buisness.IShoppingImpl;
 import fr.fms.dao.ArticleDao;
+import fr.fms.dao.CategoryDao;
 import fr.fms.dao.UserDao;
 import fr.fms.entities.Article;
+import fr.fms.entities.Category;
 import fr.fms.entities.User;
 
 public class Shop {
 	public static void main(String[] args) {
-		
-		System.out.println("-------- DIGITAL DEPOT --------");
-		User userCurrent = userConnect();
-		System.out.println("Bonjour et bienvenu " + userCurrent.getLogin() + " !");
-		displayMenu(userCurrent);
+		CategoryDao categoryDao = new CategoryDao();
+		System.out.println(categoryDao.readAll());
+//		System.out.println("-------- DIGITAL DEPOT --------");
+//		User userCurrent = userConnect();
+//		System.out.println("Bonjour et bienvenu " + userCurrent.getLogin() + " !");
+//		displayMenu(userCurrent);
 	}
 	
 	/**
