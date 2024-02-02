@@ -82,10 +82,31 @@ public class CategoryDao implements Dao<Category> {
 		}
 	}
 
+	/** La méthode update nous permet de mettre à jour un objet de type Category dans la bdd
+	 * @param article représente l'objet de type Category que l'on veux mettre à jour dans la bdd
+	 * @return true si la mise à jour à bien été éffectuer
+	 * @return false -> SINON retourne false
+	 */
 	@Override
-	public boolean update(Category obj) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean update(Category category) {
+		String request = "UPDATE T_Categories SET CatName=?, Description=? WHERE IdCategory=?;";
+		try(PreparedStatement ps = connection.prepareStatement(request)) {
+			ps.setString(1, category.getName());
+			ps.setString(2, category.getDescription());
+			ps.setInt(3, category.getIdCategory());
+			
+			if(ps.executeUpdate() > 0) {
+				System.out.println("Mise à jour ok");
+				return true;
+			} else {
+				System.err.println("ERREUR : La mise à jour a échoué.");
+				return false;
+			}
+		}catch(SQLException e) {
+			System.err.print("ERREUR : Mise à jour impossible ");
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
