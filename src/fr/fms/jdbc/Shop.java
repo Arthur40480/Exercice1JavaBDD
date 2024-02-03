@@ -189,19 +189,4 @@ public class Shop {
 	
 	}
 	
-	/**
-	 * La méthode permet de récupérer un article dans la liste d'article via sont id
-	 * @param idArticle 
-	 * @return article représente l'article qui à été trouver via l'idArticle, SINON return null
-	 */
-	public static Article findArticleById(int idArticle, ArrayList<Article> articleList) {
-		for(Article article : articleList) {
-			System.out.println(article.getIdArticle());
-			if(article.getIdArticle() == idArticle) {
-				System.out.println(article);
-				return article;
-			}
-		}
-		return null;
-	}
 }
