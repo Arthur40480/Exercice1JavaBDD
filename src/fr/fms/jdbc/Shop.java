@@ -106,6 +106,7 @@ public class Shop {
 			while(true) {
 				try {
 					articleSelected = scanner.nextInt();
+					break;
 
 				} catch(InputMismatchException e) {
 					System.err.print("ERREUR : Saisie de mauvais caractère ");
@@ -113,10 +114,23 @@ public class Shop {
 					scanner.next();
 				}
 			}
-//			int refSelectedArticleToAdd = validateInput(categoryList.size()) - 1;
-//			iShoppingImpl.addToCart(categoryList.get(refSelectedArticleToAdd), userCurrent.getCart());
-//			displayMenu(userCurrent);
-			break;
+			Article refSelectedArticleToAdd = null;
+			for(Category category : categoryList) {
+				for(Article article : category.getArticleList()) {
+					if(article.getIdArticle() == articleSelected) {
+						refSelectedArticleToAdd = article;
+					}
+				}
+			}
+			if(refSelectedArticleToAdd == null) {
+				System.out.println("L'article est introuvable !");
+				displayMenu(userCurrent);
+				break;
+			}else {
+				iShoppingImpl.addToCart(refSelectedArticleToAdd, userCurrent.getCart());
+				displayMenu(userCurrent);
+				break;
+			}
 			
 		case 2:
 			iShoppingImpl.displayCart(userCurrent.getCart());
@@ -173,5 +187,21 @@ public class Shop {
 	    }
 	    System.out.println();
 	
+	}
+	
+	/**
+	 * La méthode permet de récupérer un article dans la liste d'article via sont id
+	 * @param idArticle 
+	 * @return article représente l'article qui à été trouver via l'idArticle, SINON return null
+	 */
+	public static Article findArticleById(int idArticle, ArrayList<Article> articleList) {
+		for(Article article : articleList) {
+			System.out.println(article.getIdArticle());
+			if(article.getIdArticle() == idArticle) {
+				System.out.println(article);
+				return article;
+			}
+		}
+		return null;
 	}
 }
