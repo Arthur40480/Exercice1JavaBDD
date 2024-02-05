@@ -119,4 +119,4 @@ SELECT * FROM T_Users;
 --			(Affiche l'ensemble des données triés par Marque, et ensuite par Prix)
 
 --	1.12 - 
---	1.13 - SELECT idarticle, t_articles.description, brand, unitaryprice, catname from t_articles inner join t_categories;
+--	1.13 - SELECT idarticle, t_articles.description, brand, unitaryprice, catname from t_articles inner join t_categories where t_articles.idCategory = t_categories.idCategory and idArticle > 10 order by UnitaryPrice;
